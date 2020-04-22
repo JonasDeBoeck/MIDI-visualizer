@@ -3,6 +3,7 @@
 #define TEST_CASE CATCH_TEST_CASE
 
 #include "io/read.h"
+#include "io/read.cpp"
 #include "Catch.h"
 #include <sstream>
 

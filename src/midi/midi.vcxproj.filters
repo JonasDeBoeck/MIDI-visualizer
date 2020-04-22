@@ -54,6 +54,15 @@
     <ClInclude Include="tests\tests-util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="io\endianness.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="io\read.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="io\vli.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="app.cpp">
@@ -78,6 +87,30 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="shell\command-line-parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="io\endianness.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\01-io\01-endianness-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="io\read.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\01-io\02-read-to-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\01-io\03-read-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\01-io\04-read-array-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="io\vli.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\01-io\05-read-variable-length-integer-tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
