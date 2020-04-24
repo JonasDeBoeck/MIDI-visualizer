@@ -251,6 +251,8 @@
     <ClCompile Include="tests\02-midi\02-chunk-headers\01-chunk-header-tests.cpp" />
     <ClCompile Include="tests\02-midi\02-chunk-headers\02-read-chunk-header-tests.cpp" />
     <ClCompile Include="tests\02-midi\02-chunk-headers\03-header-id-tests.cpp" />
+    <ClCompile Include="tests\02-midi\03-mthd\01-mthd-tests.cpp" />
+    <ClCompile Include="tests\02-midi\03-mthd\02-read-mthd-tests.cpp" />
     <ClCompile Include="tests\tests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
