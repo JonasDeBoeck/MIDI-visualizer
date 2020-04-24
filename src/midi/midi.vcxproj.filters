@@ -155,5 +155,44 @@
     <ClCompile Include="tests\02-midi\03-mthd\02-read-mthd-tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tests\02-midi\04-mtrk\01-mtrk-auxiliary-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\02-midi\04-mtrk\02-mtrk-event-receiver-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\02-midi\04-mtrk\03-mtrk-empty-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\02-midi\04-mtrk\04-mtrk-meta-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\02-midi\04-mtrk\05-mtrk-sysex-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\02-midi\04-mtrk\06-mtrk-note-off-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\02-midi\04-mtrk\07-mtrk-note-on-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\02-midi\04-mtrk\08-mtrk-polyphonic-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\02-midi\04-mtrk\09-mtrk-control-change-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\02-midi\04-mtrk\10-mtrk-program-change-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\02-midi\04-mtrk\11-mtrk-channel-pressure-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\02-midi\04-mtrk\12-mtrk-pitch-wheel-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\02-midi\04-mtrk\13-mtrk-multiple-events-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

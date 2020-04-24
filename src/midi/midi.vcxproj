@@ -253,6 +253,19 @@
     <ClCompile Include="tests\02-midi\02-chunk-headers\03-header-id-tests.cpp" />
     <ClCompile Include="tests\02-midi\03-mthd\01-mthd-tests.cpp" />
     <ClCompile Include="tests\02-midi\03-mthd\02-read-mthd-tests.cpp" />
+    <ClCompile Include="tests\02-midi\04-mtrk\01-mtrk-auxiliary-tests.cpp" />
+    <ClCompile Include="tests\02-midi\04-mtrk\02-mtrk-event-receiver-tests.cpp" />
+    <ClCompile Include="tests\02-midi\04-mtrk\03-mtrk-empty-tests.cpp" />
+    <ClCompile Include="tests\02-midi\04-mtrk\04-mtrk-meta-tests.cpp" />
+    <ClCompile Include="tests\02-midi\04-mtrk\05-mtrk-sysex-tests.cpp" />
+    <ClCompile Include="tests\02-midi\04-mtrk\06-mtrk-note-off-tests.cpp" />
+    <ClCompile Include="tests\02-midi\04-mtrk\07-mtrk-note-on-tests.cpp" />
+    <ClCompile Include="tests\02-midi\04-mtrk\08-mtrk-polyphonic-tests.cpp" />
+    <ClCompile Include="tests\02-midi\04-mtrk\09-mtrk-control-change-tests.cpp" />
+    <ClCompile Include="tests\02-midi\04-mtrk\10-mtrk-program-change-tests.cpp" />
+    <ClCompile Include="tests\02-midi\04-mtrk\11-mtrk-channel-pressure-tests.cpp" />
+    <ClCompile Include="tests\02-midi\04-mtrk\12-mtrk-pitch-wheel-tests.cpp" />
+    <ClCompile Include="tests\02-midi\04-mtrk\13-mtrk-multiple-events-tests.cpp" />
     <ClCompile Include="tests\tests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
