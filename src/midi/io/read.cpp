@@ -1,6 +1,6 @@
 #include "read.h"
 
-template<class T>
+template<typename T>
 void io::read_to(std::istream& in, T* buffer, unsigned n) {
 	in.read(reinterpret_cast<char*>(buffer), sizeof(buffer) * n);
 }

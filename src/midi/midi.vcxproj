@@ -214,6 +214,7 @@
     <ClInclude Include="imaging\color.h" />
     <ClInclude Include="logging.h" />
     <ClInclude Include="io\read.h" />
+    <ClInclude Include="midi\midi.h" />
     <ClInclude Include="midi\primitives.h" />
     <ClInclude Include="shell\command-line-parser.h" />
     <ClInclude Include="tests\tests-util.h" />
@@ -234,6 +235,7 @@
     <ClCompile Include="io\vli.cpp" />
     <ClCompile Include="logging.cpp" />
     <ClCompile Include="io\read.cpp" />
+    <ClCompile Include="midi\midi.cpp" />
     <ClCompile Include="midi\primitives.cpp" />
     <ClCompile Include="shell\command-line-parser.cpp" />
     <ClCompile Include="tests\01-io\01-endianness-tests.cpp" />
@@ -246,6 +248,9 @@
     <ClCompile Include="tests\02-midi\01-primitives\03-instruments-tests.cpp" />
     <ClCompile Include="tests\02-midi\01-primitives\04-note-number-tests.cpp" />
     <ClCompile Include="tests\02-midi\01-primitives\05-time-tests.cpp" />
+    <ClCompile Include="tests\02-midi\02-chunk-headers\01-chunk-header-tests.cpp" />
+    <ClCompile Include="tests\02-midi\02-chunk-headers\02-read-chunk-header-tests.cpp" />
+    <ClCompile Include="tests\02-midi\02-chunk-headers\03-header-id-tests.cpp" />
     <ClCompile Include="tests\tests.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

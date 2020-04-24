@@ -4,7 +4,7 @@
 #include <istream>
 
 namespace io {
-	template <class T>
+	template <typename T>
 	void read_to(std::istream& in, T* buffer, unsigned n = 1);
 
 	template<typename T, typename std::enable_if<std::is_fundamental<T>::value, T>::type * = nullptr>
