@@ -194,5 +194,8 @@
     <ClCompile Include="tests\02-midi\04-mtrk\13-mtrk-multiple-events-tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tests\02-midi\05-notes\01-note-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

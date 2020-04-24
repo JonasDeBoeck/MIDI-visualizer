@@ -231,3 +231,18 @@ void midi::read_mtrk(std::istream& in, EventReceiver& receiver)
 		}
 	}
 }
+
+std::ostream& midi::operator<<(std::ostream& out, const NOTE& note)
+{
+	return out << "Note(number=" << note.note_number << ",start=" << note.start << ",duration=" << note.duration << ",instrument=" << note.instrument << ")";
+}
+
+bool midi::operator==(const NOTE& x, const NOTE& y)
+{
+	return x.duration == y.duration && x.instrument == y.instrument && x.note_number == y.note_number && x.start == y.start && x.velocity == y.velocity;
+}
+
+bool midi::operator!=(const NOTE& x, const NOTE& y)
+{
+	return !(x == y);
+}
