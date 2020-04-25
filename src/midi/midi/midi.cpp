@@ -246,3 +246,171 @@ bool midi::operator!=(const NOTE& x, const NOTE& y)
 {
 	return !(x == y);
 }
+
+void midi::ChannelNoteCollector::note_on(Duration dt, Channel channel, NoteNumber note, uint8_t velocity)
+{
+	if (channel == this->channel)
+	{
+		if (velocity == 0b00000000)
+		{
+			note_off(dt, channel, note, velocity);
+		}
+		else {
+			this->start += dt;
+			NOTE noot = NOTE();
+			noot.note_number = note;
+			noot.start = this->start;
+			noot.velocity = velocity;
+			noot.instrument = this->instrument;
+			bool exists = false;
+			for (int i = 0; i < this->notes.size(); i++)
+			{
+				if (this->notes[i].note_number == note)
+				{
+					note_off(dt, channel, note, velocity);
+					exists = true;
+					break;
+				}
+			}
+			if (!exists)
+			{
+				for (int i = 0; i < this->notes.size(); i++)
+				{
+					this->notes[i].duration += dt;
+				}
+			}
+			this->notes.push_back(noot);
+		}
+	}
+	else {
+		action_other_channel(dt);
+	}
+}
+
+void midi::ChannelNoteCollector::note_off(Duration dt, Channel channel, NoteNumber note, uint8_t velocity)
+{
+	if (channel == this->channel)
+	{
+		int index = -1;
+		for (int i = 0; i < this->notes.size(); i++)
+		{
+			this->notes[i].duration += dt;
+			if (this->notes[i].note_number == note) {
+				NOTE noot = this->notes[i];
+				this->note_receiver(noot);
+				index = i;
+			}
+		}
+		if (index != -1)
+		{
+			this->notes.erase(this->notes.begin() + index);
+		}
+		this->start += dt;
+	}
+	else {
+		action_other_channel(dt);
+	}
+}
+
+void midi::ChannelNoteCollector::polyphonic_key_pressure(Duration dt, Channel channel, NoteNumber note, uint8_t pressure)
+{
+	if (channel == this->channel)
+	{
+		for (int i = 0; i < this->notes.size(); i++)
+		{
+			this->notes[i].duration += dt;
+		}
+		this->start += dt;
+	}
+	else {
+		action_other_channel(dt);
+	}
+}
+
+void midi::ChannelNoteCollector::control_change(Duration dt, Channel channel, uint8_t controller, uint8_t value)
+{
+	if (channel == this->channel)
+	{
+		for (int i = 0; i < this->notes.size(); i++)
+		{
+			this->notes[i].duration += dt;
+		}
+		this->start += dt;
+	}
+	else {
+		action_other_channel(dt);
+	}
+}
+
+void midi::ChannelNoteCollector::program_change(Duration dt, Channel channel, Instrument program)
+{
+	if (channel == this->channel)
+	{
+		this->instrument = program;
+		for (int i = 0; i < this->notes.size(); i++)
+		{
+			this->notes[i].duration += dt;
+		}
+		this->start += dt;
+	}
+	else {
+		action_other_channel(dt);
+	}
+}
+
+void midi::ChannelNoteCollector::channel_pressure(Duration dt, Channel channel, uint8_t pressure)
+{
+	if (channel == this->channel)
+	{
+		for (int i = 0; i < this->notes.size(); i++)
+		{
+			this->notes[i].duration += dt;
+		}
+		this->start += dt;
+	}
+	else {
+		action_other_channel(dt);
+	}
+}
+
+void midi::ChannelNoteCollector::pitch_wheel_change(Duration dt, Channel channel, uint16_t value)
+{
+	if (channel == this->channel)
+	{
+		for (int i = 0; i < this->notes.size(); i++)
+		{
+			this->notes[i].duration += dt;
+		}
+		this->start += dt;
+	}
+	else {
+		action_other_channel(dt);
+	}
+}
+
+void midi::ChannelNoteCollector::meta(Duration dt, uint8_t type, std::unique_ptr<uint8_t[]> data, uint64_t data_size)
+{
+	for (int i = 0; i < this->notes.size(); i++)
+	{
+		this->notes[i].duration += dt;
+	}
+	this->start += dt;
+}
+
+void midi::ChannelNoteCollector::sysex(Duration dt, std::unique_ptr<uint8_t[]> data, uint64_t data_size)
+{
+	for (int i = 0; i < this->notes.size(); i++)
+	{
+		this->notes[i].duration += dt;
+	}
+	this->start += dt;
+}
+
+void midi::ChannelNoteCollector::action_other_channel(Duration dt)
+{
+	for (int i = 0; i < this->notes.size(); i++)
+	{
+		this->notes[i].duration += dt;
+	}
+	this->start += dt;
+}

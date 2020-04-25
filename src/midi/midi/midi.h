@@ -3,7 +3,9 @@
 
 #include <cstdint>
 #include <istream>
+#include <functional>
 #include "midi/primitives.h"
+#include <vector>
 
 namespace midi {
 	struct CHUNK_HEADER
@@ -70,11 +72,36 @@ namespace midi {
 		Instrument instrument;
 
 		NOTE(NoteNumber note_number, Time start, Duration duration, uint8_t velocity, Instrument instrument) : note_number(note_number), start(start), duration(duration), velocity(velocity), instrument(instrument) {};
+		NOTE() : note_number(0), start(0), duration(0), velocity(0), instrument(0) {};
 	};
 
 	std::ostream& operator <<(std::ostream& out, const NOTE& note);
 	bool operator ==(const NOTE& x, const NOTE& y);
 	bool operator !=(const NOTE& x, const NOTE& y);
+
+	class ChannelNoteCollector : public EventReceiver 
+	{
+		Channel channel;
+		std::function<void(const NOTE&)> note_receiver;
+		std::vector<NOTE> notes;
+		Time start;
+		Instrument instrument;
+
+	public:
+		ChannelNoteCollector(Channel channel, std::function<void(const NOTE&)> note_receiver) : channel(channel), note_receiver(note_receiver), start(0), notes(0), instrument(0) {};
+
+		void note_on(Duration dt, Channel channel, NoteNumber note, uint8_t velocity) override;
+		void note_off(Duration dt, Channel channel, NoteNumber note, uint8_t velocity) override;
+		void polyphonic_key_pressure(Duration dt, Channel channel, NoteNumber note, uint8_t pressure) override;
+		void control_change(Duration dt, Channel channel, uint8_t controller, uint8_t value) override;
+		void program_change(Duration dt, Channel channel, Instrument program) override;
+		void channel_pressure(Duration dt, Channel channel, uint8_t pressure) override;
+		void pitch_wheel_change(Duration dt, Channel channel, uint16_t value) override;
+		void meta(Duration dt, uint8_t type, std::unique_ptr<uint8_t[]> data, uint64_t data_size) override;
+		void sysex(Duration dt, std::unique_ptr<uint8_t[]> data, uint64_t data_size) override;
+
+		void action_other_channel(Duration dt);
+	};
 }
 
 #endif

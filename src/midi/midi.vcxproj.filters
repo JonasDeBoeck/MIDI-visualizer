@@ -122,7 +122,13 @@
     <ClCompile Include="tests\01-io\05-read-variable-length-integer-tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tests\02-midi\01-primitives\05-time-tests.cpp">
+    <ClCompile Include="midi\midi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\02-midi\05-notes\01-note-tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\02-midi\05-notes\02-channel-note-collector-tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tests\02-midi\01-primitives\01-channel-tests.cpp">
@@ -137,7 +143,7 @@
     <ClCompile Include="tests\02-midi\01-primitives\04-note-number-tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="midi\midi.cpp">
+    <ClCompile Include="tests\02-midi\01-primitives\05-time-tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tests\02-midi\02-chunk-headers\01-chunk-header-tests.cpp">
@@ -192,9 +198,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tests\02-midi\04-mtrk\13-mtrk-multiple-events-tests.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\02-midi\05-notes\01-note-tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
