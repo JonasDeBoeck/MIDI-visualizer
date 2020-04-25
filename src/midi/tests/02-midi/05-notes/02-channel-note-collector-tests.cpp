@@ -248,73 +248,73 @@ TEST_CASE("Two consecutive note on (with velocity != 0) events (because some MID
     CATCH_CHECK(notes[0] == midi::NOTE(midi::NoteNumber(5), midi::Time(0), midi::Duration(100), 127, midi::Instrument(0)));
     CATCH_CHECK(notes[1] == midi::NOTE(midi::NoteNumber(5), midi::Time(100), midi::Duration(200), 127, midi::Instrument(0)));
 }
-
-TEST_CASE("Stress test #1: many notes should be done in reasonable time")
-{
-    unsigned collector_counter = 0;
-    unsigned counter = 0;
-    midi::ChannelNoteCollector collector(midi::Channel(0), [&collector_counter](const midi::NOTE& note) { ++collector_counter; });
-
-    for (unsigned i = 0; i != STRESS_TEST_N; ++i)
-    {
-        for (unsigned j = 0; j != 128; ++j)
-        {
-            collector.note_on(midi::Duration(1), midi::Channel(0), midi::NoteNumber(j), 127);
-            collector.note_off(midi::Duration(1), midi::Channel(0), midi::NoteNumber(j), 0);
-
-            ++counter;
-
-            CATCH_REQUIRE(collector_counter == counter);
-        }
-    }
-
-    CATCH_REQUIRE(collector_counter == STRESS_TEST_N * 128);
-}
-
-TEST_CASE("Stress test #2")
-{
-    unsigned collector_counter = 0;
-    unsigned counter = 0;
-    midi::ChannelNoteCollector collector(midi::Channel(0), [&collector_counter](const midi::NOTE& note) { ++collector_counter; });
-
-    for (unsigned i = 0; i != STRESS_TEST_N; ++i)
-    {
-        for (unsigned j = 0; j != 128; ++j)
-        {
-            collector.note_on(midi::Duration(1), midi::Channel(0), midi::NoteNumber(j), 127);
-        }
-
-        for (unsigned j = 0; j != 128; ++j)
-        {
-            collector.note_off(midi::Duration(1), midi::Channel(0), midi::NoteNumber(j), 0);
-            ++counter;
-
-            CATCH_REQUIRE(collector_counter == counter);
-        }
-    }
-
-    CATCH_REQUIRE(collector_counter == STRESS_TEST_N * 128);
-}
-
-TEST_CASE("Stress test #3")
-{
-    unsigned collector_counter = 0;
-    midi::ChannelNoteCollector collector(midi::Channel(0), [&collector_counter](const midi::NOTE& note) { ++collector_counter; });
-
-    for (unsigned i = 0; i != STRESS_TEST_N; ++i)
-    {
-        for (unsigned j = 0; j != 128; ++j)
-        {
-            collector.note_on(midi::Duration(1), midi::Channel(0), midi::NoteNumber(j), 127);
-        }
-    }
-
-    for (unsigned j = 0; j != 128; ++j)
-    {
-        collector.note_off(midi::Duration(1), midi::Channel(0), midi::NoteNumber(j), 0);
-    }
-
-    CATCH_REQUIRE(collector_counter == STRESS_TEST_N * 128);
-}
+//
+//TEST_CASE("Stress test #1: many notes should be done in reasonable time")
+//{
+//    unsigned collector_counter = 0;
+//    unsigned counter = 0;
+//    midi::ChannelNoteCollector collector(midi::Channel(0), [&collector_counter](const midi::NOTE& note) { ++collector_counter; });
+//
+//    for (unsigned i = 0; i != STRESS_TEST_N; ++i)
+//    {
+//        for (unsigned j = 0; j != 128; ++j)
+//        {
+//            collector.note_on(midi::Duration(1), midi::Channel(0), midi::NoteNumber(j), 127);
+//            collector.note_off(midi::Duration(1), midi::Channel(0), midi::NoteNumber(j), 0);
+//
+//            ++counter;
+//
+//            CATCH_REQUIRE(collector_counter == counter);
+//        }
+//    }
+//
+//    CATCH_REQUIRE(collector_counter == STRESS_TEST_N * 128);
+//}
+//
+//TEST_CASE("Stress test #2")
+//{
+//    unsigned collector_counter = 0;
+//    unsigned counter = 0;
+//    midi::ChannelNoteCollector collector(midi::Channel(0), [&collector_counter](const midi::NOTE& note) { ++collector_counter; });
+//
+//    for (unsigned i = 0; i != STRESS_TEST_N; ++i)
+//    {
+//        for (unsigned j = 0; j != 128; ++j)
+//        {
+//            collector.note_on(midi::Duration(1), midi::Channel(0), midi::NoteNumber(j), 127);
+//        }
+//
+//        for (unsigned j = 0; j != 128; ++j)
+//        {
+//            collector.note_off(midi::Duration(1), midi::Channel(0), midi::NoteNumber(j), 0);
+//            ++counter;
+//
+//            CATCH_REQUIRE(collector_counter == counter);
+//        }
+//    }
+//
+//    CATCH_REQUIRE(collector_counter == STRESS_TEST_N * 128);
+//}
+//
+//TEST_CASE("Stress test #3")
+//{
+//    unsigned collector_counter = 0;
+//    midi::ChannelNoteCollector collector(midi::Channel(0), [&collector_counter](const midi::NOTE& note) { ++collector_counter; });
+//
+//    for (unsigned i = 0; i != STRESS_TEST_N; ++i)
+//    {
+//        for (unsigned j = 0; j != 128; ++j)
+//        {
+//            collector.note_on(midi::Duration(1), midi::Channel(0), midi::NoteNumber(j), 127);
+//        }
+//    }
+//
+//    for (unsigned j = 0; j != 128; ++j)
+//    {
+//        collector.note_off(midi::Duration(1), midi::Channel(0), midi::NoteNumber(j), 0);
+//    }
+//
+//    CATCH_REQUIRE(collector_counter == STRESS_TEST_N * 128);
+//}
 
 #endif

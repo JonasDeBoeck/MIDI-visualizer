@@ -102,6 +102,53 @@ namespace midi {
 
 		void action_other_channel(Duration dt);
 	};
+
+	class EventMulticaster : EventReceiver {
+		std::vector<std::shared_ptr<EventReceiver>> event_receiver;
+
+	public:
+		EventMulticaster(std::vector<std::shared_ptr<EventReceiver>> event_receiver) : event_receiver(event_receiver) {};
+		EventMulticaster() : event_receiver({}) {};
+
+		void note_on(Duration dt, Channel channel, NoteNumber note, uint8_t velocity) override;
+		void note_off(Duration dt, Channel channel, NoteNumber note, uint8_t velocity) override;
+		void polyphonic_key_pressure(Duration dt, Channel channel, NoteNumber note, uint8_t pressure) override;
+		void control_change(Duration dt, Channel channel, uint8_t controller, uint8_t value) override;
+		void program_change(Duration dt, Channel channel, Instrument program) override;
+		void channel_pressure(Duration dt, Channel channel, uint8_t pressure) override;
+		void pitch_wheel_change(Duration dt, Channel channel, uint16_t value) override;
+		void meta(Duration dt, uint8_t type, std::unique_ptr<uint8_t[]> data, uint64_t data_size) override;
+		void sysex(Duration dt, std::unique_ptr<uint8_t[]> data, uint64_t data_size) override;
+	};
+
+	class NoteCollector : public EventReceiver {
+		std::function<void(const NOTE&)> note_receiver;
+		EventMulticaster event_multicaster;
+
+	public:
+		NoteCollector(std::function<void(const NOTE&)> note_receiver) : note_receiver(note_receiver) {
+			std::vector<std::shared_ptr<EventReceiver>> event_receiver;
+			for (int i = 0; i < 16; i++)
+			{
+				ChannelNoteCollector channel_note_controller = ChannelNoteCollector(Channel(i), note_receiver);
+				std::shared_ptr<ChannelNoteCollector> receiver = std::make_shared<ChannelNoteCollector>(channel_note_controller);
+				event_receiver.push_back(receiver);
+			}
+			event_multicaster = EventMulticaster(event_receiver);
+		};
+
+		void note_on(Duration dt, Channel channel, NoteNumber note, uint8_t velocity) override;
+		void note_off(Duration dt, Channel channel, NoteNumber note, uint8_t velocity) override;
+		void polyphonic_key_pressure(Duration dt, Channel channel, NoteNumber note, uint8_t pressure) override;
+		void control_change(Duration dt, Channel channel, uint8_t controller, uint8_t value) override;
+		void program_change(Duration dt, Channel channel, Instrument program) override;
+		void channel_pressure(Duration dt, Channel channel, uint8_t pressure) override;
+		void pitch_wheel_change(Duration dt, Channel channel, uint16_t value) override;
+		void meta(Duration dt, uint8_t type, std::unique_ptr<uint8_t[]> data, uint64_t data_size) override;
+		void sysex(Duration dt, std::unique_ptr<uint8_t[]> data, uint64_t data_size) override;
+	};
+
+	std::vector<NOTE> read_notes(std::istream& in);
 }
 
 #endif

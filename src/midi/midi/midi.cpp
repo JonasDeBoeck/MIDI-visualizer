@@ -414,3 +414,134 @@ void midi::ChannelNoteCollector::action_other_channel(Duration dt)
 	}
 	this->start += dt;
 }
+
+void midi::EventMulticaster::note_on(Duration dt, Channel channel, NoteNumber note, uint8_t velocity)
+{
+	for (int i = 0; i < this->event_receiver.size(); i++)
+	{
+		this->event_receiver[i]->note_on(dt, channel, note, velocity);
+	}
+}
+
+void midi::EventMulticaster::note_off(Duration dt, Channel channel, NoteNumber note, uint8_t velocity)
+{
+	for (int i = 0; i < this->event_receiver.size(); i++)
+	{
+		this->event_receiver[i]->note_off(dt, channel, note, velocity);
+	}
+}
+
+void midi::EventMulticaster::polyphonic_key_pressure(Duration dt, Channel channel, NoteNumber note, uint8_t pressure)
+{
+	for (int i = 0; i < this->event_receiver.size(); i++)
+	{
+		this->event_receiver[i]->polyphonic_key_pressure(dt, channel, note, pressure);
+	}
+}
+
+void midi::EventMulticaster::control_change(Duration dt, Channel channel, uint8_t controller, uint8_t value)
+{
+	for (int i = 0; i < this->event_receiver.size(); i++)
+	{
+		this->event_receiver[i]->control_change(dt, channel, controller, value);
+	}
+}
+
+void midi::EventMulticaster::program_change(Duration dt, Channel channel, Instrument program)
+{
+	for (int i = 0; i < this->event_receiver.size(); i++)
+	{
+		this->event_receiver[i]->program_change(dt, channel, program);
+	}
+}
+
+void midi::EventMulticaster::channel_pressure(Duration dt, Channel channel, uint8_t pressure)
+{
+	for (int i = 0; i < this->event_receiver.size(); i++)
+	{
+		this->event_receiver[i]->channel_pressure(dt, channel, pressure);
+	}
+}
+
+void midi::EventMulticaster::pitch_wheel_change(Duration dt, Channel channel, uint16_t value)
+{
+	for (int i = 0; i < this->event_receiver.size(); i++)
+	{
+		this->event_receiver[i]->pitch_wheel_change(dt, channel, value);
+	}
+}
+
+void midi::EventMulticaster::meta(Duration dt, uint8_t type, std::unique_ptr<uint8_t[]> data, uint64_t data_size)
+{
+	for (int i = 0; i < this->event_receiver.size(); i++)
+	{
+		this->event_receiver[i]->meta(dt, type, std::move(data), data_size);
+	}
+}
+
+void midi::EventMulticaster::sysex(Duration dt, std::unique_ptr<uint8_t[]> data, uint64_t data_size)
+{
+	for (int i = 0; i < this->event_receiver.size(); i++)
+	{
+		this->event_receiver[i]->sysex(dt, std::move(data), data_size);
+	}
+}
+
+void midi::NoteCollector::note_on(Duration dt, Channel channel, NoteNumber note, uint8_t velocity)
+{
+	this->event_multicaster.note_on(dt, channel, note, velocity);
+}
+
+void midi::NoteCollector::note_off(Duration dt, Channel channel, NoteNumber note, uint8_t velocity)
+{
+	this->event_multicaster.note_off(dt, channel, note, velocity);
+}
+
+void midi::NoteCollector::polyphonic_key_pressure(Duration dt, Channel channel, NoteNumber note, uint8_t pressure)
+{
+	this->event_multicaster.polyphonic_key_pressure(dt, channel, note, pressure);
+}
+
+void midi::NoteCollector::control_change(Duration dt, Channel channel, uint8_t controller, uint8_t value)
+{
+	this->event_multicaster.control_change(dt, channel, controller, value);
+}
+
+void midi::NoteCollector::program_change(Duration dt, Channel channel, Instrument program)
+{
+	this->event_multicaster.program_change(dt, channel, program);
+}
+
+void midi::NoteCollector::channel_pressure(Duration dt, Channel channel, uint8_t pressure)
+{
+	this->event_multicaster.channel_pressure(dt, channel, pressure);
+}
+
+void midi::NoteCollector::pitch_wheel_change(Duration dt, Channel channel, uint16_t value)
+{
+	this->event_multicaster.pitch_wheel_change(dt, channel, value);
+}
+
+void midi::NoteCollector::meta(Duration dt, uint8_t type, std::unique_ptr<uint8_t[]> data, uint64_t data_size)
+{
+	this->event_multicaster.meta(dt, type, std::move(data), data_size);
+}
+
+void midi::NoteCollector::sysex(Duration dt, std::unique_ptr<uint8_t[]> data, uint64_t data_size)
+{
+	this->event_multicaster.sysex(dt, std::move(data), data_size);
+
+}
+
+std::vector<midi::NOTE> midi::read_notes(std::istream& in)
+{
+	std::vector<midi::NOTE> notes;
+	MTHD mthd;
+	read_mthd(in, &mthd);
+	for (int i = 0; i < mthd.ntracks; i++)
+	{
+		NoteCollector note_collector = NoteCollector([&notes](const midi::NOTE& note) { notes.push_back(note); });
+		read_mtrk(in, note_collector);	
+	}
+	return notes;
+}
