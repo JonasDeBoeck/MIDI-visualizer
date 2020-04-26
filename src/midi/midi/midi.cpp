@@ -210,8 +210,9 @@ void midi::read_mtrk(std::istream& in, EventReceiver& receiver)
 					receiver.polyphonic_key_pressure(duration, vorige_channel, note, pressure);
 				}
 				else if (vorige_event == "control_change") {
-					Instrument program = Instrument(event);
-					receiver.program_change(duration, vorige_channel, program);
+					uint8_t controller = event;
+					uint8_t value = in.get();
+					receiver.control_change(duration, extract_midi_event_channel(event), controller, value);
 				}
 				else if (vorige_event == "program_change") {
 					Instrument program = Instrument(event);
