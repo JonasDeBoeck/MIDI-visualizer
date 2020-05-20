@@ -216,6 +216,7 @@
     <ClInclude Include="io\read.h" />
     <ClInclude Include="midi\midi.h" />
     <ClInclude Include="midi\primitives.h" />
+    <ClInclude Include="midi\visualisation.h" />
     <ClInclude Include="shell\command-line-parser.h" />
     <ClInclude Include="tests\tests-util.h" />
     <ClInclude Include="util\array.h" />
