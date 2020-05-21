@@ -2,7 +2,7 @@
 
 template<typename T>
 void io::read_to(std::istream& in, T* buffer, unsigned n) {
-	in.read(reinterpret_cast<char*>(buffer), sizeof(buffer) * n);
+	in.read(reinterpret_cast<char*>(buffer), sizeof(T) * n);
 }
 
 template<typename T, typename std::enable_if<std::is_fundamental<T>::value, T>::type * = nullptr>

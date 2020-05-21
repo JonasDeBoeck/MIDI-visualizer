@@ -1,6 +1,8 @@
-#include <imaging/bmp-format.h>
 #ifndef VISUALISATION_H
 #define VISUALISATION_H
+
+#include <imaging/bmp-format.h>
+#include <vector>
 
 namespace visualisation {
 	struct Visualizer {
@@ -10,7 +12,7 @@ namespace visualisation {
 	};
 
 	void draw_rectangle(unsigned width, unsigned height, Position position, imaging::Color color, imaging::Bitmap& bitmap);
-	void draw_bitmap(std::string fileName, Visualizer& visualizer);
+	void draw_bitmap(Visualizer& visualizer);
 	void slice(imaging::Bitmap& bitmap, Visualizer& visualizer, int duration, int height);
 	std::string frame_formatter(Visualizer& visualizer, int counter);
 }
