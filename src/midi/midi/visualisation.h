@@ -8,7 +8,7 @@ namespace visualisation {
 	struct Visualizer {
 		unsigned frame_width, step, note_height, horizontal_scale;
 		std::string filename, pattern;
-		Visualizer() : frame_width(0), step(1), note_height(16), horizontal_scale(100), filename(""), pattern("frame%d.bmp") {};
+		Visualizer() : frame_width(0), step(1), note_height(16), horizontal_scale(100), filename(""), pattern("") {};
 	};
 
 	void draw_rectangle(unsigned width, unsigned height, Position position, imaging::Color color, imaging::Bitmap& bitmap);

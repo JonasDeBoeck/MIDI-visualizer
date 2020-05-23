@@ -86,10 +86,17 @@ void visualisation::draw_rectangle(unsigned width, unsigned height, Position pos
 void visualisation::slice(imaging::Bitmap& bitmap, Visualizer& visualizer, int duration, int height) {
 	int width = visualizer.frame_width;
 	int counter = 0;
+	int last_frame_start = 0;
 	for (int i = 0; i + width <= duration; i += visualizer.step)
 	{
 		imaging::save_as_bmp(frame_formatter(visualizer, counter), *bitmap.slice(i, 0, width, height));
 		counter += 1;
+		last_frame_start = i;
+	}
+	last_frame_start += width;
+	if (duration % (width + visualizer.step) != 0)
+	{
+		imaging::save_as_bmp(frame_formatter(visualizer, counter), *bitmap.slice(last_frame_start, 0, duration - last_frame_start, height));
 	}
 }
 

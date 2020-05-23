@@ -9,6 +9,8 @@ int main(int argn, char** argv)
 	visualisation::Visualizer visualizer;
 	bool fileFound = false;
 	bool isValue = false;
+	//assert (argn > 2), filename en pattern moeten minstens worden meegegeven
+	assert(argn > 2);
 	for (int i = 1; i < argn; i++)
 	{
 		std::string command(argv[i]);
