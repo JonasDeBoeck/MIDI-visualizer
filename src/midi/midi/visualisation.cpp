@@ -93,6 +93,7 @@ void visualisation::slice(imaging::Bitmap& bitmap, Visualizer& visualizer, int d
 		counter += 1;
 		last_frame_start = i;
 	}
+	// Wanneer duration % (width + visualizer.step) != 0 is de slice in de for loop niet helemaal tot op het einde van de bitmap geraakt, om dit op te lossen maak ik een kleinere frame die het overblijfsel bevat.
 	last_frame_start += width;
 	if (duration % (width + visualizer.step) != 0)
 	{
